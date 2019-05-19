@@ -1,52 +1,24 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * @(#)QueueBrowser.java	1.20 02/04/09
  *
- * Copyright (c) 1997-2015 Oracle and/or its affiliates. All rights reserved.
+ * Copyright 1997-2002 Sun Microsystems, Inc. All Rights Reserved.
  *
- * The contents of this file are subject to the terms of either the GNU
- * General Public License Version 2 only ("GPL") or the Common Development
- * and Distribution License("CDDL") (collectively, the "License").  You
- * may not use this file except in compliance with the License.  You can
- * obtain a copy of the License at
- * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
- * or packager/legal/LICENSE.txt.  See the License for the specific
- * language governing permissions and limitations under the License.
- *
- * When distributing the software, include this License Header Notice in each
- * file and include the License file at packager/legal/LICENSE.txt.
- *
- * GPL Classpath Exception:
- * Oracle designates this particular file as subject to the "Classpath"
- * exception as provided by Oracle in the GPL Version 2 section of the License
- * file that accompanied this code.
- *
- * Modifications:
- * If applicable, add the following below the License Header, with the fields
- * enclosed by brackets [] replaced by your own identifying information:
- * "Portions Copyright [year] [name of copyright owner]"
- *
- * Contributor(s):
- * If you wish your version of this file to be governed by only the CDDL or
- * only the GPL Version 2, indicate your decision by adding "[Contributor]
- * elects to include this software in this distribution under the [CDDL or GPL
- * Version 2] license."  If you don't indicate a single choice of license, a
- * recipient has the option to distribute your version of this file under
- * either the CDDL, the GPL Version 2 or to extend the choice of license to
- * its licensees as provided above.  However, if you add GPL Version 2 code
- * and therefore, elected the GPL Version 2 license, then the option applies
- * only if the new code is made subject to such option by the copyright
- * holder.
+ *  SUN PROPRIETARY/CONFIDENTIAL.
+ * This software is the proprietary information of Sun Microsystems, Inc.  
+ * Use is subject to license terms.
+ * 
  */
+
 
 package javax.jms;
 
 import java.util.Enumeration;
 
-/** A client uses a {@code QueueBrowser} object to look at messages on a 
+/** A client uses a <CODE>QueueBrowser</CODE> object to look at messages on a 
   * queue without removing them.
   *
-  * <P>The {@code getEnumeration} method returns a 
-  * {@code java.util.Enumeration} that is used to scan 
+  * <P>The <CODE>getEnumeration</CODE> method returns a 
+  * <CODE>java.util.Enumeration</CODE> that is used to scan 
   * the queue's messages. It may be an enumeration of the entire content of a 
   * queue, or it may contain only the messages matching a message selector.
   *
@@ -55,22 +27,21 @@ import java.util.Enumeration;
   * not require the content of an enumeration to be a static snapshot of queue 
   * content. Whether these changes are visible or not depends on the JMS 
   * provider.
-  * <p>
-  * A message must not be returned by a {@code QueueBrowser} before its delivery time has been reached.
   *
-  *<P>A {@code QueueBrowser} can be created from either a 
-  * {@code Session} or a {@code  QueueSession}. 
-  * 
-  * @see         javax.jms.Session#createBrowser
+  *<P>A <CODE>QueueBrowser</CODE> can be created from either a 
+  * <CODE>Session</CODE> or a <CODE> QueueSession</CODE>. 
+  *
+  * @version     1.1 April 9, 2002
+  * @author      Mark Hapner
+  * @author      Rich Burridge
+  * @author      Kate Stout
+  *
+  *  @see         javax.jms.Session#createBrowser
   * @see         javax.jms.QueueSession#createBrowser
   * @see         javax.jms.QueueReceiver
-  *
-  * @version JMS 2.0
-  * @since JMS 1.0
-  *
   */
 
-public interface QueueBrowser extends AutoCloseable {
+public interface QueueBrowser {
 
     /** Gets the queue associated with this queue browser.
       * 
@@ -115,7 +86,7 @@ public interface QueueBrowser extends AutoCloseable {
     getEnumeration() throws JMSException;
 
 
-    /** Closes the {@code QueueBrowser}.
+    /** Closes the <CODE>QueueBrowser</CODE>.
       *
       * <P>Since a provider may allocate some resources on behalf of a 
       * QueueBrowser outside the Java virtual machine, clients should close them

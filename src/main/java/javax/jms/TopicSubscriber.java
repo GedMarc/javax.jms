@@ -1,52 +1,24 @@
 /*
- * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
+ * @(#)TopicSubscriber.java	1.28 02/04/09
  *
- * Copyright (c) 1997-2015 Oracle and/or its affiliates. All rights reserved.
+ * Copyright 1997-2002 Sun Microsystems, Inc. All Rights Reserved.
  *
- * The contents of this file are subject to the terms of either the GNU
- * General Public License Version 2 only ("GPL") or the Common Development
- * and Distribution License("CDDL") (collectively, the "License").  You
- * may not use this file except in compliance with the License.  You can
- * obtain a copy of the License at
- * https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html
- * or packager/legal/LICENSE.txt.  See the License for the specific
- * language governing permissions and limitations under the License.
- *
- * When distributing the software, include this License Header Notice in each
- * file and include the License file at packager/legal/LICENSE.txt.
- *
- * GPL Classpath Exception:
- * Oracle designates this particular file as subject to the "Classpath"
- * exception as provided by Oracle in the GPL Version 2 section of the License
- * file that accompanied this code.
- *
- * Modifications:
- * If applicable, add the following below the License Header, with the fields
- * enclosed by brackets [] replaced by your own identifying information:
- * "Portions Copyright [year] [name of copyright owner]"
- *
- * Contributor(s):
- * If you wish your version of this file to be governed by only the CDDL or
- * only the GPL Version 2, indicate your decision by adding "[Contributor]
- * elects to include this software in this distribution under the [CDDL or GPL
- * Version 2] license."  If you don't indicate a single choice of license, a
- * recipient has the option to distribute your version of this file under
- * either the CDDL, the GPL Version 2 or to extend the choice of license to
- * its licensees as provided above.  However, if you add GPL Version 2 code
- * and therefore, elected the GPL Version 2 license, then the option applies
- * only if the new code is made subject to such option by the copyright
- * holder.
+ *  SUN PROPRIETARY/CONFIDENTIAL.
+ * This software is the proprietary information of Sun Microsystems, Inc.  
+ * Use is subject to license terms.
+ * 
  */
+
 
 package javax.jms;
 
-/** A client uses a {@code TopicSubscriber} object to receive messages that
-  * have been published to a topic. A {@code TopicSubscriber} object is the
-  * publish/subscribe form of a message consumer. A {@code MessageConsumer}
-  * can be created by using {@code Session.createConsumer}. 
+/** A client uses a <CODE>TopicSubscriber</CODE> object to receive messages that
+  * have been published to a topic. A <CODE>TopicSubscriber</CODE> object is the
+  * publish/subscribe form of a message consumer. A <CODE>MessageConsumer</CODE>
+  * can be created by using <CODE>Session.createConsumer</CODE>. 
   *
-  * <P>A {@code TopicSession} allows the creation of multiple 
-  * {@code TopicSubscriber} objects per topic.  It will deliver each 
+  * <P>A <CODE>TopicSession</CODE> allows the creation of multiple 
+  * <CODE>TopicSubscriber</CODE> objects per topic.  It will deliver each 
   * message for a topic to each
   * subscriber eligible to receive it. Each copy of the message
   * is treated as a completely separate message. Work done on one copy has
@@ -54,7 +26,7 @@ package javax.jms;
   * others; one message may be delivered immediately, while another waits
   * for its subscriber to process messages ahead of it.
   *
-  * <P>Regular {@code TopicSubscriber} objects are not durable. They 
+  * <P>Regular <CODE>TopicSubscriber</CODE> objects are not durable. They 
   * receive only messages that are published while they are active.
   *
   * <P>Messages filtered out by a subscriber's message selector will never 
@@ -62,13 +34,13 @@ package javax.jms;
   * do not exist.
   *
   * <P>In some cases, a connection may both publish and subscribe to a topic.
-  * The subscriber {@code NoLocal} attribute allows a subscriber to inhibit
+  * The subscriber <CODE>NoLocal</CODE> attribute allows a subscriber to inhibit
   * the 
   * delivery of messages published by its own connection.
   *
   * <P>If a client needs to receive all the messages published on a topic, 
   * including the ones published while the subscriber is inactive, it uses 
-  * a durable {@code TopicSubscriber}. The JMS provider retains a record of
+  * a durable <CODE>TopicSubscriber</CODE>. The JMS provider retains a record of
   * this durable 
   * subscription and insures that all messages from the topic's publishers 
   * are retained until they are acknowledged by this durable 
@@ -77,42 +49,44 @@ package javax.jms;
   * <P>Sessions with durable subscribers must always provide the same client 
   * identifier. In addition, each client must specify a name that uniquely 
   * identifies (within client identifier) each durable subscription it creates.
-  * Only one session at a time can have a {@code TopicSubscriber} for a 
+  * Only one session at a time can have a <CODE>TopicSubscriber</CODE> for a 
   * particular durable subscription. 
   *
   * <P>A client can change an existing durable subscription by creating a 
-  * durable {@code TopicSubscriber} with the same name and a new topic 
+  * durable <CODE>TopicSubscriber</CODE> with the same name and a new topic 
   * and/or message 
   * selector. Changing a durable subscription is equivalent to unsubscribing 
   * (deleting) the old one and creating a new one.
   *
-  * <P>The {@code unsubscribe} method is used to delete a durable 
-  * subscription. The {@code unsubscribe} method can be used at the 
-  * {@code Session} or {@code TopicSession} level.
+  * <P>The <CODE>unsubscribe</CODE> method is used to delete a durable 
+  * subscription. The <CODE>unsubscribe</CODE> method can be used at the 
+  * <CODE>Session</CODE> or <CODE>TopicSession</CODE> level.
   * This method deletes the state being 
   * maintained on behalf of the subscriber by its provider.
   *
-  * <P>Creating a {@code MessageConsumer} provides the same features as
-  * creating a {@code TopicSubscriber}. To create a durable subscriber, 
-  * use of {@code Session.CreateDurableSubscriber} is recommended. The 
-  * {@code TopicSubscriber} is provided to support existing code.
+  * <P>Creating a <CODE>MessageConsumer</CODE> provides the same features as
+  * creating a <CODE>TopicSubscriber</CODE>. To create a durable subscriber, 
+  * use of <CODE>Session.CreateDurableSubscriber</CODE> is recommended. The 
+  * <CODE>TopicSubscriber</CODE> is provided to support existing code.
   * 
+  * 
+  * @version     1.1 - February 2, 2002
+  * @author      Mark Hapner
+  * @author      Rich Burridge
+  * @author      Kate Stout
+  *
   * @see         javax.jms.Session#createConsumer
   * @see         javax.jms.Session#createDurableSubscriber
   * @see         javax.jms.TopicSession
   * @see         javax.jms.TopicSession#createSubscriber
   * @see         javax.jms.MessageConsumer
-  * 
-  * @version JMS 2.0
-  * @since JMS 1.0
-  * 
   */
 
 public interface TopicSubscriber extends MessageConsumer {
 
-    /** Gets the {@code Topic} associated with this subscriber.
+    /** Gets the <CODE>Topic</CODE> associated with this subscriber.
       *  
-      * @return this subscriber's {@code Topic}
+      * @return this subscriber's <CODE>Topic</CODE>
       *  
       * @exception JMSException if the JMS provider fails to get the topic for
       *                         this topic subscriber
@@ -123,13 +97,13 @@ public interface TopicSubscriber extends MessageConsumer {
     getTopic() throws JMSException;
 
 
-    /** Gets the {@code NoLocal} attribute for this subscriber. 
+    /** Gets the <CODE>NoLocal</CODE> attribute for this subscriber. 
       * The default value for this attribute is false.
       *  
       * @return true if locally published messages are being inhibited
       *  
       * @exception JMSException if the JMS provider fails to get the
-      *                         {@code NoLocal} attribute for
+      *                         <CODE>NoLocal</CODE> attribute for
       *                         this topic subscriber
       *                         due to some internal error.
       */ 

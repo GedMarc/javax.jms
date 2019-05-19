@@ -45,13 +45,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.java</groupId>
-        <artifactId>jvnet-parent</artifactId>
-        <version>3</version>
+        <groupId>com.jwebmp.thirdparty</groupId>
+        <artifactId>third-party-modules</artifactId>
+        <version>0.0.0_0-SNAPSHOT</version>
     </parent>
-    <groupId>javax.jms</groupId>
+    <groupId>com.jwebmp.thirdparty.jms</groupId>
     <artifactId>javax.jms-api</artifactId>
-    <version>2.1-b01-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <!--
@@ -109,107 +109,7 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <version>1.9.1</version>
-                <executions>
-                    <execution>
-                        <id>step1-parse-version</id>
-                        <goals>
-                            <goal>parse-version</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.glassfish.build</groupId>
-                <artifactId>spec-version-maven-plugin</artifactId>
-                <version>1.2</version>
-                <configuration>
-                    <spec>
-                        <nonFinal>${spec.non.final}</nonFinal>
-                        <newSpecVersion>${spec.newVersion}</newSpecVersion>
-                        <jarType>api</jarType>
-                        <specBuild>${spec.build}</specBuild>
-                        <specVersion>${spec.version}</specVersion>
-                        <specImplVersion>${project.version}</specImplVersion>
-                        <apiPackage>${spec.extension.name}</apiPackage>
-                    </spec>
-                </configuration>             
-                <executions>
-                    <execution>
-                        <id>step2-set-spec-properties</id>
-                        <goals>
-                            <goal>set-spec-properties</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <goals>
-                            <goal>check-module</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <compilerArgument>-Xlint:unchecked</compilerArgument>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version> 2.3.4 </version>
-                <configuration>
-                    <supportedProjectTypes>
-                        <supportedProjectType>jar</supportedProjectType>
-                    </supportedProjectTypes>
-                    <instructions>
-                        <Bundle-Version>${spec.bundle.version}</Bundle-Version>
-                        <Bundle-SymbolicName>${spec.bundle.symbolic-name}</Bundle-SymbolicName>
-                        <Extension-Name>${spec.extension.name}</Extension-Name>
-                        <Implementation-Version>${spec.implementation.version}</Implementation-Version>
-                        <Specification-Version>${spec.specification.version}</Specification-Version>
-                        <Bundle-Description>
-                            Java(TM) Message Service (JMS) ${spec.version} Specification
-                        </Bundle-Description>
-                        <Specification-Vendor>Oracle Corporation</Specification-Vendor>
-                        <Implementation-Vendor-Id>org.glassfish.mq</Implementation-Vendor-Id>
-                        <Export-Package>${spec.extension.name}.*;version=${spec.version}</Export-Package>
-                        <!--
-                                                <Import-Package>
-                                                    javax.jms;version=${bundle.version}
-                                                </Import-Package>
-                        -->
-                    </instructions>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>bundle-manifest</id>
-                        <phase>process-classes</phase>
-                        <goals>
-                            <goal>manifest</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <archive>
-                        <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
-                    </archive>
-                    <excludes>
-                        <exclude>**/*.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-remote-resources-plugin</artifactId>
@@ -227,22 +127,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.1</version>
-                <configuration>
-                    <includePom>true</includePom>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal> 
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
@@ -272,15 +157,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>     
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <mavenExecutorId>forked-path</mavenExecutorId>
-                    <useReleaseProfile>false</useReleaseProfile>
-                    <arguments>${release.arguments}</arguments>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.glassfish.copyright</groupId>
@@ -308,16 +184,4 @@
             </resource>
         </resources>
     </build>
-    <profiles>
-        <profile>
-            <id>javadoc-jdk8+</id>
-            <activation>
-                <jdk>[1.8,)</jdk>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <javadoc.options>-Xdoclint:none</javadoc.options>
-            </properties>
-        </profile>
-    </profiles>
 </project>
