@@ -76,7 +76,7 @@
         <spec.extension.name>javax.jms</spec.extension.name>
         <spec.non.final>true</spec.non.final>
     </properties>
-    <name>JMS API</name>
+    <name>javax.jms</name>
 
     <url>http://java.net/projects/jms-spec/pages/Home</url>
 
